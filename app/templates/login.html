@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% from "_formhelpers.html" import render_field %}
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no"/>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}"
+          media="screen">
+    <link href="{{ url_for('static', filename='fonts/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ url_for('static', filename='css/dataTables.bootstrap4.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/sb-admin.css') }}" rel="stylesheet">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/favicon.png') }}">
+</head>
+
+<body class="bg-dark">
+  <div class="container">
+    <div class="card card-login mx-auto mt-5">
+      <div class="card-header">Sign in</div>
+      <div class="card-body">
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                <p style="color:red;">{{ message }}</p>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        <form method=post>
+            {{ form.hidden_tag() }}
+            {% for field in form %}
+                {{ render_field(field) }}
+            {% endfor %}
+            <input type=submit class="btn btn-primary btn-block" value='Sign in'>
+        </form>
+        <div class="text-center">
+          <a class="d-block small mt-3" href="/register">Sign up</a>
+          <a class="d-block small" href="/forgot_password">Forgot Password?</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Bootstrap core JavaScript-->
+  <script src="{{ url_for('static', filename='js/jquery.min.js')}}"></script>
+  <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js')}}"></script>
+  <!-- Core plugin JavaScript-->
+  <script src="{{ url_for('static', filename='js/jquery.easing.min.js')}}"></script>
+</body>
+</html>

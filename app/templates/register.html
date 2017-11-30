@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no"/>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}"
+          media="screen">
+    <link href="{{ url_for('static', filename='fonts/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ url_for('static', filename='css/dataTables.bootstrap4.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/sb-admin.css') }}" rel="stylesheet">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/favicon.png') }}">
+</head>
+
+<body class="bg-dark">
+  <div class="container">
+    <div class="card card-register mx-auto mt-5">
+      <div class="card-header">Sign up</div>
+      <div class="card-body">
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                <p style="color:red;">{{ message }}</p>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        <form method=post>
+            {{ form.hidden_tag() }}
+              <div class="form-group">
+                <div class="form-row">
+                  <div class="col-md-6">
+                    {{ form.username.label }}
+                    {{ form.username(required=form.username.flags.required,class_="form-control",placeholder="Enter Username")|safe }}
+                  </div>
+                  <div class="col-md-6">
+                      <div class="form-check" style="margin-top: 2.4rem;">
+                          {{ form.admin(required=form.admin.flags.required,class_="form-check-input")|safe }}
+                          {{ form.admin.label(class_="form-check-label") }}
+                      </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="form-row">
+                  <div class="col-md-6">
+                    {{ form.firstname.label }}
+                    {{ form.firstname(required=form.firstname.flags.required,class_="form-control",placeholder="Enter First name")|safe }}
+                  </div>
+                  <div class="col-md-6">
+                    {{ form.lastname.label }}
+                    {{ form.lastname(required=form.lastname.flags.required,class_="form-control",placeholder="Enter Last name")|safe }}
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                {{ form.email.label }}
+                {{ form.email(required=form.email.flags.required,class_="form-control",placeholder="Enter Email")|safe }}
+              </div>
+              <div class="form-group">
+                <div class="form-row">
+                  <div class="col-md-6">
+                    {{ form.password.label }}
+                    {{ form.password(required=form.password.flags.required,class_="form-control",placeholder="Enter Password")|safe }}
+                  </div>
+                  <div class="col-md-6">
+                    {{ form.confirm_password.label }}
+                    {{ form.confirm_password(required=form.confirm_password.flags.required,class_="form-control",placeholder="Enter Password")|safe }}
+                  </div>
+                </div>
+                  {% if form.confirm_password.errors %}
+                      {% for error in form.confirm_password.errors %}
+                          <p>{{ error }}</p>
+                      {% endfor %}
+                  {% endif %}
+                  {% if form.password.errors %}
+                      {% for error in form.password.errors %}
+                          <p style="color: red;">{{ error }}</p>
+                      {% endfor %}
+                  {% endif %}
+              </div>
+            <input type=submit class="btn btn-primary btn-block" value='Sign up'>
+        </form>
+        <div class="text-center">
+          <a class="d-block small mt-3" href="/login">Sign in</a>
+          <a class="d-block small" href="/forgot_password">Forgot Password?</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Bootstrap core JavaScript-->
+  <script src="{{ url_for('static', filename='js/jquery.min.js')}}"></script>
+  <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js')}}"></script>
+  <!-- Core plugin JavaScript-->
+  <script src="{{ url_for('static', filename='js/jquery.easing.min.js')}}"></script>
+</body>
+</html>

@@ -1,0 +1,112 @@
+{% extends "layout.html" %}
+{% block content %}
+{% if entities %}
+    <div class="card mb-3">
+        <div class="card-header">{{title}}</div>
+        <div class="card-body">
+            <div class="table-responsive">
+                {% if name != 'user' and g.user.admin %}
+                    <div class="control-panel" id="control-panel">
+                        <a href="/{{name}}/add" class="button"><i class="fa fa-plus-circle" aria-hidden="true"></i> Add</a>
+                    </div>
+                {% endif %}
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                    <tr>
+                        {% for key, value in entities[0].get_list() %}
+                            {% if key != 'id' or g.user.admin %}
+                                <th>{{ key }}</th>
+                            {% endif %}
+                        {% endfor %}
+                        {% if name != 'user' and g.user.admin %}
+                            <th>edit</th>
+                        {% endif %}
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for entity in entities %}
+                    <tr>
+                        {% for key, value in entity.get_list() %}
+                            {% if key != 'id' or g.user.admin %}
+                                <td>{{ value }}</td>
+                            {% endif %}
+                        {% endfor %}
+                        {% if name != 'user' and g.user.admin %}
+                            <td>
+                                <a class="button" href="/{{name}}/{{entity.get_id()}}/update"><i class="fa fa-fw fa-pencil"></i></a>
+                                <a class="button" href="" id="aSource" onclick="addLinkInModalButton('/{{name}}/{{entity.get_id()}}/delete')"
+                                   data-toggle="modal" data-target="#modalDelete">
+                                    <i class="fa fa-fw fa-trash"></i></a>
+                            </td>
+                        {% endif %}
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- Delete Modal -->
+        <div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="Modal"
+                 aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel1">Are you sure?</h5>
+                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">Select "Delete" below if you want to delete this entry.</div>
+                        <div class="modal-footer">
+                            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                            <a class="btn btn-primary" href="" id="aDelete">Delete</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <!-- Other error Modal -->
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="modal fade" id="modalError" tabindex="-1" role="dialog" aria-labelledby="Modal"
+                         aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel2">Error</h5>
+                                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">×</span>
+                                    </button>
+                                </div>
+
+                                <div class="modal-body">{{" ".join(messages)}}</div>
+                                <div class="modal-footer">
+                                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            {% endif %}
+        {% endwith %}
+        <script>
+            function addLinkInModalButton(link) {
+                document.getElementById("aDelete").href = link;
+                return false; }
+            {% if get_flashed_messages() %}
+                $('#modalError').modal('show');
+            {% endif %}
+        </script>
+    </div>
+{% else %}
+    <div class="row">
+        <div class="col-12">
+            <h1>{{title}} not found</h1>
+            {% if message %}
+                <p>{{message}}</p>
+            {% endif %}
+            {% if name != 'user' and g.user.admin %}
+                <a href="/{{name}}/add" class="button"><i class="fa fa-plus-circle" aria-hidden="true"></i> Add</a>
+            {% endif %}
+        </div>
+    </div>
+{% endif %}
+{% endblock %}

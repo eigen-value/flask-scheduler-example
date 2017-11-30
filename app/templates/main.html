@@ -1,0 +1,132 @@
+{% extends "layout.html" %}
+{% block content %}
+{% if not g.user.admin and not g.user.group %}
+<div class="row">
+    <div class="col-12">
+        <h1>Schedule not found</h1>
+        <p>Please enter your group in the user settings.</p>
+    </div>
+</div>
+{% else %}
+<div class="dx-viewport demo-container">
+    <div class="scheduler"></div>
+</div>
+<script>
+    var data = JSON.parse('{{ data | tojson | safe}}');
+    var resourcesData = JSON.parse('{{ resourcesData | tojson | safe}}');
+    $(document).ready(function() {
+      var customerData = new DevExpress.data.CustomStore({
+        load: function(o) { return data; } });
+      var scheduler = $(".scheduler")
+        .dxScheduler({
+        dataSource: new DevExpress.data.DataSource({
+            store: customerData
+          }),
+          views: ["month", "week", "day"],
+          currentView: "week",
+          currentDate: new Date(),
+          useDropDownViewSwitcher: false,
+          firstDayOfWeek: 0,
+          startDayHour: 9,
+          endDayHour: 17,
+          showAllDayPanel: false,
+          resources: [{
+              fieldExpr: "ownerId",
+              allowMultiple: false,
+              dataSource: resourcesData,
+              label: "Group"}],
+          width: "100%",
+          height: 600,
+          appointmentTooltipTemplate: function(data, container) {
+            var markup = getTooltipTemplate(getLessonById(data.id));
+            markup.find(".open").dxButton({
+                text: "Open description",
+                onClick: function() {
+                    scheduler.showAppointmentPopup(data, false);
+                }
+            });
+            return markup;
+          },
+          onAppointmentFormCreated: function(data) {
+            var form = data.form,
+                lessonInfo = getLessonById(data.appointmentData.id) || {},
+                startDate = data.appointmentData.startDate;
+                form.option("items", [{
+                    label: {text: "Class number"},
+                    name: "class_number",
+                    editorType: "dxTextBox",
+                    editorOptions: {
+                        value: lessonInfo.class_number,
+                        readOnly: true }
+                }, {
+                    label: {text: "Room"},
+                    name: "room",
+                    editorType: "dxTextBox",
+                    editorOptions: {
+                        value: lessonInfo.room,
+                        readOnly: true }
+                {% if g.user.admin %}
+                 }, {
+                    label: {text: "Group"},
+                    name: "group",
+                    editorType: "dxTextBox",
+                    editorOptions: {
+                        value: lessonInfo.group,
+                        readOnly: true }
+
+                {% endif %}
+                }, {
+                    label: {text: "Lesson"},
+                    name: "lesson",
+                    editorType: "dxTextBox",
+                    editorOptions: {
+                        value: lessonInfo.lesson,
+                        readOnly: true }
+                }, {
+                    label: {text: "Teacher"},
+                    name: "teacher",
+                    editorType: "dxTextBox",
+                    editorOptions: {
+                        value: lessonInfo.teacher,
+                        readOnly: true }
+                }, {
+                    dataField: "startDate",
+                    editorType: "dxDateBox",
+                    editorOptions: {
+                        type: "datetime",
+                        readOnly: true }
+                 }, {
+                    dataField: "endDate",
+                    editorType: "dxDateBox",
+                    editorOptions: {
+                        type: "datetime",
+                        readOnly: true }
+                }
+            ]);
+          },
+          editing: {
+              allowDeleting: false,
+              allowUpdating: false,
+              allowAdding: false,
+              allowDragging: false,
+              allowResizing: false}
+          })
+        .dxScheduler("instance");
+    });
+    function getLessonById(id) {
+        return DevExpress.data.query(data).filter("id", id).toArray()[0];
+    }
+    function getTooltipTemplate(data) {
+        return $("<div class='movie-tooltip'>" +
+                 "<div class='movie-info'>" +
+                 "<div><b>Room:</b> " + data.room +
+                 {% if g.user.admin %}
+                 "</div><div><b>Group:</b> " + data.group  +
+                 {% endif %}
+                 "</div><div><b>Lesson:</b> " + data.lesson  +
+                 "</div><div><b>Teacher:</b> " + data.teacher  +
+                 "</div></div><br><div class='open'></div></div>");
+    }
+</script>
+{% endif %}
+{% endblock %}

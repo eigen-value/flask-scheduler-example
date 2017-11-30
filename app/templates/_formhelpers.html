@@ -1,0 +1,31 @@
+{% macro render_field(field) %}
+{% if field.name != 'csrf_token'%}
+<div class="form-group">
+    {% if field.type == "BooleanField" %}
+        <div class="form-check">
+        {{ field(required=field.flags.required,class_="form-check-input",**kwargs)|safe }} {{ field.label(class_="form-check-label") }}
+        </div>
+    {% elif field.type == "DateField" %}
+        {{ field.label }}
+        <div class="input-append date datepicker">
+            {{ field(required=field.flags.required, class_="form-control", readonly=true, **kwargs)|safe }}
+            <span class="add-on"><i class="fa fa-fw fa-calendar"></i></span>
+        </div>
+    {% elif field.name == "time_start" or field.name == "time_end" %}
+        {{ field.label }}
+        <div class="input-append date timepicker">
+            {{ field(required=field.flags.required, class_="form-control", **kwargs)|safe }}
+            <span class="add-on"><i class="fa fa-fw fa-clock-o"></i></span>
+        </div>
+    {% else %}
+        {{ field.label }}
+        {{ field(required=field.flags.required, class_="form-control", placeholder="Enter "+field.label.text, **kwargs)|safe }}
+    {% endif %}
+    {% if field.errors %}
+        {% for error in field.errors %}
+        <p style="color: red;">{{ error }}</p>
+        {% endfor %}
+    {% endif %}
+</div>
+{% endif %}
+{% endmacro %}
