@@ -56,5 +56,10 @@ class User(db.Model):
                   ('group', self.group),
                   ('age', self.age),
                   ('email', self.email),
-                  ('last seen', self.last_seen)]
+                  ('last seen', self.last_seen),
+                  ('email confirmed', self.email_confirmed)]
         return result
+
+    def confirm_email(self):
+        self.email_confirmed = True
+        db.session.commit()

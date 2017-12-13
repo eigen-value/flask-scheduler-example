@@ -1,8 +1,11 @@
-from flask import Blueprint, flash, request, redirect, render_template, g
+from flask import Blueprint, flash, request, redirect, render_template, \
+    g, url_for, abort
 from flask_login import login_user, logout_user, login_required, current_user
 from .models import User
 from .forms import UserForm, LoginForm, RegisterForm
 from app.decorators import only_for_admin
+from app.util.security import ts
+from app.util.emails import send_email
 
 
 mod = Blueprint('login', __name__)
@@ -23,8 +26,29 @@ def register():
                         form.firstname.data, form.lastname.data, form.admin.data)
         new_user.add()
         flash('User successfully registered')
+
+        # Now we'll send the email confirmation link
+        token = ts.dumps(form.email.data, salt='email-confirm-key')
+        confirm_url = url_for('login.confirm_email', token=token, external=True)
+        subject = "Confirm your email"
+        html = render_template('activate.html', confirm_url=confirm_url)
+        send_email([new_user.email], subject, html)
         return redirect('/login')
+
     return render_template('register.html', form=form)
+
+
+@mod.route('/confirm/<token>')
+def confirm_email(token):
+    try:
+        email = ts.loads(token, salt="email-confirm-key", max_age=86400)
+    except:
+        abort(404)
+
+    found_user = User.query.filter_by(email=email).first_or_404()
+    found_user.confirm_email()
+
+    return redirect('/login')
 
 
 @mod.route('/login', methods=['GET', 'POST'])
