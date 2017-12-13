@@ -1,0 +1,15 @@
+{% extends "login/layout_login.html" %}
+{% block content %}
+    <div class="card card-login mx-auto mt-5">
+      <div class="card-header">Resend email</div>
+      <div class="card-body">
+        <form method=post>
+            {{ form.hidden_tag() }}
+            {% for field in form %}
+                {{ render_field(field) }}
+            {% endfor %}
+            <input type=submit class="btn btn-primary btn-block" value='Resend'>
+        </form>
+      </div>
+    </div>
+{% endblock %}

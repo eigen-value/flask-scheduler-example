@@ -1,0 +1,20 @@
+{% extends "login/layout_login.html" %}
+{% block content %}
+    <div class="card card-login mx-auto mt-5">
+      <div class="card-header">Sign in</div>
+      <div class="card-body">
+        {{ output_flashed_messages() }}
+        <form method=post>
+            {{ form.hidden_tag() }}
+            {% for field in form %}
+                {{ render_field(field) }}
+            {% endfor %}
+            <input type=submit class="btn btn-primary btn-block" value='Sign in'>
+        </form>
+        <div class="text-center">
+          <a class="d-block small mt-3" href="/register">Sign up</a>
+          <a class="d-block small" href="/forgot_password">Forgot Password?</a>
+        </div>
+      </div>
+    </div>
+{% endblock %}

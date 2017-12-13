@@ -30,3 +30,7 @@ class RegisterForm(FlaskForm):
     confirm_password = PasswordField('Confirm password', validators=[DataRequired(),
                                                  EqualTo('password',
                                                          message='Passwords must match')])
+
+
+class ConfirmationForm(FlaskForm):
+    email = EmailField('E-mail', validators=[DataRequired(), Email()])

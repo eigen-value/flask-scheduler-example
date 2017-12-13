@@ -3,6 +3,7 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 
 
 class Config(object):
+    # main config
     DEBUG = False
     TESTING = False
     CSRF_ENABLED = True
@@ -11,15 +12,17 @@ class Config(object):
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_MIGRATE_REPO = os.path.join(basedir, 'db_repository')
 
-    # email server
+    # mail settings
     MAIL_SERVER = 'smtp.gmail.com'
     MAIL_PORT = 465
     MAIL_USE_SSL = True
     MAIL_USERNAME = 'username'
     MAIL_PASSWORD = 'password'
+    SECURITY_PASSWORD_SALT = 'email-confirm-key'
 
-    # administrator list
+    # mail accounts
     ADMINS = ['username']
+    MAIL_DEFAULT_SENDER = 'username'
 
 
 class ProductionConfig(Config):

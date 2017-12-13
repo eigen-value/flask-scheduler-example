@@ -1,4 +1,4 @@
-from flask import Blueprint, request, redirect, render_template, flash
+from flask import Blueprint, request, redirect, render_template, flash, abort
 from flask_login import login_required, current_user
 from .models import ENTITIES
 from app.decorators import only_for_admin
@@ -11,15 +11,15 @@ mod = Blueprint('entity', __name__)
 @login_required
 def show_entity(href):
     if href not in ENTITIES:
-        return render_template('404.html')
+        return abort(404)
     entity = ENTITIES.get(href)
     if not current_user.admin and not current_user.id_group:
         message = 'Please enter your group in the user settings.'
-        return render_template('entity.html', name=entity['href'],
+        return render_template('entities/entity.html', name=entity['href'],
                                title=entity['title'], message=message)
     else:
         refs = entity['class'].get_allowed(current_user)
-        return render_template('entity.html', name=entity['href'],
+        return render_template('entities/entity.html', name=entity['href'],
                                title=entity['title'], entities=refs)
 
 
@@ -27,7 +27,7 @@ def show_entity(href):
 @only_for_admin
 def add_entity(href):
     if href not in ENTITIES:
-        return render_template('404.html')
+        return abort(404)
     entity = ENTITIES.get(href)
     form = entity['form'](request.form)
     new_ref = entity['class'](**form.get_dict())
@@ -42,7 +42,7 @@ def add_entity(href):
         return redirect('/%s/add' % href)
     else:
         form.fill(**new_ref.get_dict())
-        return render_template('entity_update.html', title='New %s' % entity['name_unit'],
+        return render_template('entities/entity_update.html', title='New %s' % entity['name_unit'],
                                text_button='Add', form=form)
 
 
@@ -50,7 +50,7 @@ def add_entity(href):
 @only_for_admin
 def update_entity(href, id_entity):
     if href not in ENTITIES:
-        return render_template('404.html')
+        return abort(404)
     entity = ENTITIES.get(href)
     found_ref = entity['class'].get_by_id(id_entity)
     form = entity['form'](request.form)
@@ -65,7 +65,7 @@ def update_entity(href, id_entity):
         return redirect('/%s/%s/update' % (href, id_entity))
     else:
         form.fill(**found_ref.get_dict())
-        return render_template('entity_update.html', text_button='Update', form=form,
+        return render_template('entities/entity_update.html', text_button='Update', form=form,
                                title='Update %s %s' % (entity['name_unit'], found_ref))
 
 
@@ -73,7 +73,7 @@ def update_entity(href, id_entity):
 @only_for_admin
 def delete_entity(href, id_entity):
     if href not in ENTITIES:
-        return render_template('404.html')
+        return abort(404)
     entity = ENTITIES.get(href)
     found_ref = entity['class'].get_by_id(id_entity)
     if found_ref.has_relationships():
