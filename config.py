@@ -1,5 +1,5 @@
 import os
-basedir = os.path.abspath(os.path.dirname(__file__))
+basedir = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'databases')
 
 
 class Config(object):

@@ -1,10 +1,16 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_mail import Mail
+from flask_login import LoginManager
 
 app = Flask(__name__)
 app.config.from_object('config.DevelopmentConfig')
 db = SQLAlchemy(app)
+
+# login & security
+lm = LoginManager()
+lm.init_app(app)
+lm.login_view = 'login.login'
 mail = Mail(app)
 
 # blueprints:
@@ -12,17 +18,6 @@ import app.entities.controllers as entities
 import app.login.controllers as login
 app.register_blueprint(entities.mod)
 app.register_blueprint(login.mod)
-
-# login & security
-from flask_login import LoginManager
-from itsdangerous import URLSafeTimedSerializer
-from flask_mail import Mail
-
-lm = LoginManager()
-lm.init_app(app)
-lm.login_view = 'login.login'
-ts = URLSafeTimedSerializer(app.config["SECRET_KEY"])
-mail = Mail(app)
 
 from app import views
 
