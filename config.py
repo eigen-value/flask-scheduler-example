@@ -11,6 +11,7 @@ class Config(object):
     SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'app.db')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_MIGRATE_REPO = os.path.join(basedir, 'db_repository')
+    BCRYPT_LOG_ROUNDS = 12
 
     # mail settings
     MAIL_SERVER = 'smtp.gmail.com'

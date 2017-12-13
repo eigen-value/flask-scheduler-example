@@ -16,6 +16,7 @@ def register():
         if User.query.filter_by(username=form.username.data).first():
             flash('Username has already taken', 'warning')
             return render_template('login/register.html', form=form)
+
         elif User.query.filter_by(email=form.email.data).first():
             flash('Email has already taken', 'warning')
             return render_template('login/register.html', form=form)
@@ -65,13 +66,18 @@ def resend_confirmation():
 def login():
     form = LoginForm(request.form)
     if form.validate_on_submit():
-        registered_user = User.query.filter_by(username=form.username.data,
-                                               password=form.password.data).first()
+        registered_user = User.query.filter_by(username=form.username.data).first()
         if registered_user is None:
-            flash('Username or Password is invalid', 'warning')
+            flash('Username is invalid', 'warning')
             return render_template('login/login.html', title='Sing in', form=form)
+
+        if not registered_user.is_correct_password(form.password.data):
+            flash('Password is invalid', 'warning')
+            return render_template('login/login.html', title='Sing in', form=form)
+
         if not registered_user.email_confirmed:
             return redirect('/unconfirmed')
+
         login_user(registered_user, remember=form.remember_me.data)
         next = request.args.get('next')
         return redirect(next or '/')
