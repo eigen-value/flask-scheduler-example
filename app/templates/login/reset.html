@@ -1,0 +1,20 @@
+{% extends "login/layout_login.html" %}
+{% block content %}
+<div class="card card-login mx-auto mt-5">
+    <div class="card-header">Reset password</div>
+    <div class="card-body">
+        <p>Enter your email address and we will send you instructions on how to reset your password.</p>
+        <form method=post>
+            {{ form.hidden_tag() }}
+            {% for field in form %}
+                {{ render_field(field) }}
+            {% endfor %}
+            <input type=submit class="btn btn-primary btn-block" value='Send'>
+        </form>
+        <div class="text-center">
+          <a class="d-block small mt-3" href="/login">Sign in</a>
+          <a class="d-block small" href="/register">Sign up</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

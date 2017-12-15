@@ -28,9 +28,16 @@ class RegisterForm(FlaskForm):
     email = EmailField('E-mail', validators=[DataRequired(), Email()])
     password = PasswordField('Password', validators=[DataRequired()])
     confirm_password = PasswordField('Confirm password', validators=[DataRequired(),
-                                                 EqualTo('password',
-                                                         message='Passwords must match')])
+                                     EqualTo('password', message='Passwords must match')])
 
 
 class ConfirmationForm(FlaskForm):
     email = EmailField('E-mail', validators=[DataRequired(), Email()])
+
+
+class EmailForm(FlaskForm):
+    email = EmailField('E-mail', validators=[DataRequired(), Email()])
+
+
+class PasswordForm(FlaskForm):
+    password = PasswordField('Password', validators=[DataRequired()])

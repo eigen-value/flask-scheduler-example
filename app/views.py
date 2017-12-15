@@ -1,14 +1,15 @@
 from app import app, lm, db
-from flask import g, render_template, current_app
-from flask_login import current_user, login_required
+from flask import g, render_template, current_app, redirect
+from flask_login import current_user
 from datetime import datetime
 from app.login.models import User
 from app.entities.models import Scheduler
 
 
 @app.route('/')
-@login_required
 def main():
+    if not current_user.is_authenticated:
+        return redirect('/login')
     resources_data = Scheduler.get_resources_data()
     data = Scheduler.get_data_group(current_user)
     return render_template('main.html', title='Schedule',

@@ -68,6 +68,10 @@ class User(db.Model):
     def is_correct_password(self, plaintext):
         return bcrypt.check_password_hash(self._password, plaintext)
 
+    def set_password(self, password):
+        self._password = bcrypt.generate_password_hash(password)
+        db.session.commit()
+
     @hybrid_property
     def password(self):
         return self._password

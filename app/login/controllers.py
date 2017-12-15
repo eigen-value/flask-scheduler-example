@@ -1,9 +1,10 @@
 from flask import Blueprint, flash, request, redirect, render_template, g
 from flask_login import login_user, logout_user, login_required, current_user
 from .models import User
-from .forms import UserForm, LoginForm, RegisterForm, ConfirmationForm
+from .forms import UserForm, LoginForm, RegisterForm, ConfirmationForm, EmailForm, PasswordForm
 from app.decorators import only_for_admin
-from app.util.security import send_confirm_token, confirm_token
+from app.util.security import confirm_token
+from app.util.emails import send_confirm_token, send_reset_token
 
 
 mod = Blueprint('login', __name__)
@@ -26,6 +27,7 @@ def register():
         new_user.add()
 
         send_confirm_token(new_user.email)
+        flash('A confirmation link has been sent to your email address', 'success')
         return redirect('/unconfirmed')
 
     return render_template('login/register.html', form=form)
@@ -33,10 +35,10 @@ def register():
 
 @mod.route('/confirm/<token>')
 def confirm(token):
-    try:
-        email = confirm_token(token)
-    except:
+    email = confirm_token(token)
+    if not email:
         flash('The confirmation link is invalid or has expired.', 'danger')
+        return redirect('/login')
 
     found_user = User.query.filter_by(email=email).first_or_404()
     if found_user.email_confirmed:
@@ -89,6 +91,34 @@ def login():
 def logout():
     logout_user()
     return redirect('/')
+
+
+@mod.route('/reset', methods=['GET', "POST"])
+def reset():
+    form = EmailForm()
+    if form.validate_on_submit():
+        found_user = User.query.filter_by(email=form.email.data).first_or_404()
+        send_reset_token(found_user.email)
+        flash('A link to reset your password has been sent to the email address', 'success')
+        return redirect('/')
+    return render_template('login/reset.html', form=form)
+
+
+@mod.route('/reset/<token>', methods=['GET', "POST"])
+def reset_with_token(token):
+    email = confirm_token(token)
+    if not email:
+        flash('The reset link is invalid or has expired.', 'danger')
+        return redirect('/login')
+
+    form = PasswordForm()
+    if form.validate_on_submit():
+        found_user = User.query.filter_by(email=email).first_or_404()
+        found_user.set_password(form.password.data)
+        flash('Your Password has been changed successfully!', 'success')
+        return redirect('/login')
+    return render_template('login/reset_with_token.html',
+                           form=form, token=token)
 
 
 @mod.route('/users', methods=['GET'])
