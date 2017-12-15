@@ -1,4 +1,7 @@
 #!flask/bin/python
+import sys
+sys.path.append('../')
+
 from app import app
 from migrate.versioning import api
 

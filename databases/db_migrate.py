@@ -1,6 +1,9 @@
 #!flask/bin/python
 import imp
 from migrate.versioning import api
+import sys
+sys.path.append('../')
+
 from app import app, db
 
 uri = app.config['SQLALCHEMY_DATABASE_URI']
