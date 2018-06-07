@@ -1,5 +1,7 @@
 # Example flask application for managing the schedule of courses.
 
+[Result](http://anavozhko.pythonanywhere.com/) <br>user: test<br> password: test
+
 ### 1. Install 
 ```
 $ git clone https://github.com/anavozhko/flask-scheduler-example
