@@ -1,15 +1,15 @@
 {% extends "login/layout_login.html" %}
 {% block content %}
     <div class="card card-login mx-auto mt-5">
-      <div class="card-header">Please confirm your email!</div>
+      <div class="card-header">{{ _('Please confirm your email!') }}</div>
       <div class="card-body">
-        <p>You have not confirmed your account. Please check your inbox (and your spam folder) - you should have received an email with a confirmation link.</p>
+        <p>{{ _('You have not confirmed your account. Please check your inbox (and your spam folder) - you should have received an email with a confirmation link.') }}</p>
         <div class="text-center">
-          <p>Didn't get the email? <a href="/resend">Resend</a></p>
+          <p>Didn't get the email? <a href="/resend">{{ _('Resend') }}</a></p>
         </div>
           <div class="text-center">
-              <a class="d-block small mt-3" href="/login">Sign in</a>
-              <a class="d-block small" href="/register">Sign up</a>
+              <a class="d-block small mt-3" href="/login">{{ _('Sign in') }}</a>
+              <a class="d-block small" href="/register">{{ _('Sign up') }}</a>
           </div>
       </div>
     </div>

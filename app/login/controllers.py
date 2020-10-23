@@ -1,5 +1,6 @@
 from flask import Blueprint, flash, request, redirect, render_template, g
 from flask_login import login_user, logout_user, login_required, current_user
+from flask_babel import gettext
 from .models import User
 from .forms import UserForm, LoginForm, RegisterForm, ConfirmationForm, EmailForm, PasswordForm
 from app.decorators import only_for_admin
@@ -15,11 +16,11 @@ def register():
     form = RegisterForm(request.form)
     if form.validate_on_submit():
         if User.query.filter_by(username=form.username.data).first():
-            flash('Username has already taken', 'warning')
+            flash(gettext('Username was already taken'), 'warning')
             return render_template('login/register.html', form=form)
 
         elif User.query.filter_by(email=form.email.data).first():
-            flash('Email has already taken', 'warning')
+            flash(gettext('Email was already taken'), 'warning')
             return render_template('login/register.html', form=form)
 
         new_user = User(form.username.data, form.password.data, form.email.data,
@@ -27,7 +28,7 @@ def register():
         new_user.add()
 
         send_confirm_token(new_user.email)
-        flash('A confirmation link has been sent to your email address', 'success')
+        flash(gettext('A confirmation link has been sent to your email address'), 'success')
         return redirect('/unconfirmed')
 
     return render_template('login/register.html', form=form)
@@ -37,15 +38,15 @@ def register():
 def confirm(token):
     email = confirm_token(token)
     if not email:
-        flash('The confirmation link is invalid or has expired.', 'danger')
+        flash(gettext('The confirmation link is invalid or has expired.'), 'danger')
         return redirect('/login')
 
     found_user = User.query.filter_by(email=email).first_or_404()
     if found_user.email_confirmed:
-        flash('Account already confirmed. Please login.', 'warning')
+        flash(gettext('Account already confirmed. Please login.'), 'warning')
     else:
         found_user.confirm_email()
-        flash('You have confirmed your account. Thanks!', 'success')
+        flash(gettext('You have confirmed your account. Thanks!'), 'success')
     return redirect('/login')
 
 
@@ -59,7 +60,7 @@ def resend_confirmation():
     form = ConfirmationForm(request.form)
     if form.validate_on_submit():
         send_confirm_token(form.email.data)
-        flash('A new confirmation email has been sent.', 'success')
+        flash(gettext('A new confirmation email has been sent.'), 'success')
         return redirect('/')
     return render_template('login/resend.html', form=form)
 
@@ -70,11 +71,11 @@ def login():
     if form.validate_on_submit():
         registered_user = User.query.filter_by(username=form.username.data).first()
         if registered_user is None:
-            flash('Username is invalid', 'warning')
+            flash(gettext('Username is invalid'), 'warning')
             return render_template('login/login.html', title='Sing in', form=form)
 
         if not registered_user.is_correct_password(form.password.data):
-            flash('Password is invalid', 'warning')
+            flash(gettext('Password is invalid'), 'warning')
             return render_template('login/login.html', title='Sing in', form=form)
 
         if not registered_user.email_confirmed:
@@ -99,7 +100,7 @@ def reset():
     if form.validate_on_submit():
         found_user = User.query.filter_by(email=form.email.data).first_or_404()
         send_reset_token(found_user.email)
-        flash('A link to reset your password has been sent to the email address', 'success')
+        flash(gettext('A link to reset your password has been sent to the email address'), 'success')
         return redirect('/')
     return render_template('login/reset.html', form=form)
 
@@ -108,14 +109,14 @@ def reset():
 def reset_with_token(token):
     email = confirm_token(token)
     if not email:
-        flash('The reset link is invalid or has expired.', 'danger')
+        flash(gettext('The reset link is invalid or has expired.'), 'danger')
         return redirect('/login')
 
     form = PasswordForm()
     if form.validate_on_submit():
         found_user = User.query.filter_by(email=email).first_or_404()
         found_user.set_password(form.password.data)
-        flash('Your Password has been changed successfully!', 'success')
+        flash(gettext('Your Password has been changed successfully!'), 'success')
         return redirect('/login')
     return render_template('login/reset_with_token.html',
                            form=form, token=token)
@@ -138,7 +139,7 @@ def user_update():
     if request.method == "POST" and form.validate_on_submit():
         if current_user.username != form.username.data \
                 and User.query.filter_by(username=form.username.data).first():
-            flash('Username has already taken', 'warning')
+            flash(gettext('Username was already taken'), 'warning')
             return redirect('/update')
         curr_user.edit(username=form.username.data,
                        lastname=form.lastname.data,
@@ -153,6 +154,6 @@ def user_update():
         form.age.data = curr_user.age
         form.group.data = curr_user.group
         return render_template('entities/entity_update.html',
-                               title='Update user %s' % curr_user,
-                               text_button="Update",
+                               title=gettext('Update user %s') % curr_user,
+                               text_button=gettext("Update"),
                                form=form)

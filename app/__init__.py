@@ -1,12 +1,23 @@
-from flask import Flask
+from flask import Flask, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_mail import Mail
 from flask_login import LoginManager
 from flask_bcrypt import Bcrypt
+from flask_babel import Babel
 
 app = Flask(__name__)
 app.config.from_object('config.DevelopmentConfig')
 db = SQLAlchemy(app)
+
+# Babel
+babel = Babel(app)
+
+
+@babel.localeselector
+def get_locale():
+    print("getting locale")
+    return request.accept_languages.best_match(app.config['LANGUAGES'].keys())
+
 
 # login & security
 lm = LoginManager()

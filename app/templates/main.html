@@ -3,8 +3,8 @@
 {% if not g.user.admin and not g.user.group %}
 <div class="row">
     <div class="col-12">
-        <h1>Schedule not found</h1>
-        <p>Please enter your group in the user settings.</p>
+        <h1>{{ _('Schedule not found') }}</h1>
+        <p>{{ _('Please enter your group in the user settings.') }}</p>
     </div>
 </div>
 {% else %}

@@ -1,5 +1,6 @@
 from flask import Blueprint, request, redirect, render_template, flash, abort
 from flask_login import login_required, current_user
+from flask_babel import gettext
 from .models import ENTITIES
 from app.decorators import only_for_admin
 from sqlalchemy.exc import SQLAlchemyError, IntegrityError
@@ -42,8 +43,8 @@ def add_entity(href):
         return redirect('/%s/add' % href)
     else:
         form.fill(**new_ref.get_dict())
-        return render_template('entities/entity_update.html', title='New %s' % entity['name_unit'],
-                               text_button='Add', form=form)
+        return render_template('entities/entity_update.html', title=gettext('New %s') % entity['name_unit'],
+                               text_button=gettext('Add'), form=form)
 
 
 @mod.route('/<href>/<id_entity>/update', methods=['GET', "POST"])
@@ -65,8 +66,8 @@ def update_entity(href, id_entity):
         return redirect('/%s/%s/update' % (href, id_entity))
     else:
         form.fill(**found_ref.get_dict())
-        return render_template('entities/entity_update.html', text_button='Update', form=form,
-                               title='Update %s %s' % (entity['name_unit'], found_ref))
+        return render_template('entities/entity_update.html', text_button=gettext('Update'), form=form,
+                               title=gettext('Update %s %s') % (entity['name_unit'], found_ref))
 
 
 @mod.route('/<href>/<id_entity>/delete', methods=['GET'])

@@ -19,7 +19,7 @@
         </div>
     {% else %}
         {{ field.label }}
-        {{ field(required=field.flags.required, class_="form-control", placeholder="Enter "+field.label.text, **kwargs)|safe }}
+        {{ field(required=field.flags.required, class_="form-control", placeholder=_("Enter ")+field.label.text, **kwargs)|safe }}
     {% endif %}
     {% if field.errors %}
         {% for error in field.errors %}

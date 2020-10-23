@@ -1,15 +1,15 @@
 {% extends "login/layout_login.html" %}
 {% block content %}
 <div class="card card-login mx-auto mt-5">
-    <div class="card-header">Reset password</div>
+    <div class="card-header">{{ _('Reset password') }}</div>
     <div class="card-body">
-        <p>Please enter new password.</p>
+        <p>{{ _('Please enter new password.') }}</p>
         <form method=post>
             {{ form.hidden_tag() }}
             {% for field in form %}
                 {{ render_field(field) }}
             {% endfor %}
-            <input type=submit class="btn btn-primary btn-block" value='Change my password'>
+            <input type=submit class="btn btn-primary btn-block" value={{ _('Change my password') }}>
         </form>
     </div>
 </div>

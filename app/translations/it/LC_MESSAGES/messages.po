@@ -1,0 +1,340 @@
+# Italian translations for PROJECT.
+# Copyright (C) 2020 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2020.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2020-10-23 16:25+0200\n"
+"PO-Revision-Date: 2020-10-22 18:05+0200\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: it\n"
+"Language-Team: it <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.8.0\n"
+
+#: entities/controllers.py:46
+#, python-format
+msgid "New %s"
+msgstr "Aggiungi %s"
+
+#: entities/controllers.py:47 templates/entities/entity.html:10
+#: templates/entities/entity.html:107
+msgid "Add"
+msgstr "Aggiungi"
+
+#: entities/controllers.py:69 login/controllers.py:158
+msgid "Update"
+msgstr "Aggiorna"
+
+#: entities/controllers.py:70
+#, python-format
+msgid "Update %s %s"
+msgstr "Aggiorna %s %s"
+
+#: entities/forms.py:11 entities/forms.py:37 entities/forms.py:51
+#: entities/forms.py:63
+msgid "Name"
+msgstr "Nome"
+
+#: entities/forms.py:23 login/forms.py:12 login/forms.py:26
+msgid "First name"
+msgstr "Nome"
+
+#: entities/forms.py:24 login/forms.py:13 login/forms.py:27
+msgid "Last name"
+msgstr "Cognome"
+
+#: entities/forms.py:38
+msgid "Teacher"
+msgstr "Docente"
+
+#: entities/forms.py:64
+msgid "Time start"
+msgstr "Ora di inizio"
+
+#: entities/forms.py:65
+msgid "Time end"
+msgstr "Ora di uscita"
+
+#: entities/forms.py:79
+msgid "Date"
+msgstr "Data"
+
+#: entities/forms.py:80
+msgid "Class number"
+msgstr "Lezione"
+
+#: entities/forms.py:81
+msgid "Room"
+msgstr "Aula"
+
+#: entities/forms.py:82
+msgid "Lesson"
+msgstr "Corso"
+
+#: entities/forms.py:83 login/forms.py:15
+msgid "Group"
+msgstr "Gruppo"
+
+#: entities/models.py:456
+msgid "room"
+msgstr "aula"
+
+#: entities/models.py:456 templates/layout.html:49
+msgid "Rooms"
+msgstr "Aule"
+
+#: entities/models.py:457
+msgid "teacher"
+msgstr "docente"
+
+#: entities/models.py:457 templates/layout.html:69
+msgid "Teachers"
+msgstr "Docenti"
+
+#: entities/models.py:458
+msgid "lesson"
+msgstr "corso"
+
+#: entities/models.py:458 templates/layout.html:75
+msgid "Lessons"
+msgstr "Corsi"
+
+#: entities/models.py:459
+msgid "group"
+msgstr "gruppo"
+
+#: entities/models.py:459 templates/layout.html:56
+msgid "Groups"
+msgstr "Gruppi"
+
+#: entities/models.py:460
+msgid "schedule"
+msgstr "scheda"
+
+#: entities/models.py:460
+msgid "Schedule"
+msgstr "Scheda"
+
+#: entities/models.py:461
+msgid "class number"
+msgstr "lezione"
+
+#: entities/models.py:461 templates/layout.html:81
+msgid "Class numbers"
+msgstr "Lezioni"
+
+#: login/controllers.py:19 login/controllers.py:142
+msgid "Username was already taken"
+msgstr "Nome utente già in uso"
+
+#: login/controllers.py:23
+msgid "Email was already taken"
+msgstr "E-mail già in uso"
+
+#: login/controllers.py:31
+msgid "A confirmation link has been sent to your email address"
+msgstr "Un link di conferma è stato inviato al tuo indirizzo e-mail"
+
+#: login/controllers.py:41
+msgid "The confirmation link is invalid or has expired."
+msgstr "Il link di conferma è invalido o scaduto"
+
+#: login/controllers.py:46
+msgid "Account already confirmed. Please login."
+msgstr "Account già confermato. Effettuare il login"
+
+#: login/controllers.py:49
+msgid "You have confirmed your account. Thanks!"
+msgstr "Hai confermato il tuo account. Grazie!"
+
+#: login/controllers.py:63
+msgid "A new confirmation email has been sent."
+msgstr "Una nuova e-mail di conferma è stata inviata"
+
+#: login/controllers.py:74
+msgid "Username is invalid"
+msgstr "Nome utente non valido"
+
+#: login/controllers.py:78
+msgid "Password is invalid"
+msgstr "Password non valida"
+
+#: login/controllers.py:103
+msgid "A link to reset your password has been sent to the email address"
+msgstr ""
+"Un link per resettare la tua password è stato inviato al tuo indirizzo "
+"e-mail"
+
+#: login/controllers.py:112
+msgid "The reset link is invalid or has expired."
+msgstr "Il link di reset è invalido o scaduto"
+
+#: login/controllers.py:119
+msgid "Your Password has been changed successfully!"
+msgstr "La tua password è stata modificata con successo!"
+
+#: login/controllers.py:157
+#, python-format
+msgid "Update user %s"
+msgstr "Aggiorna utente %s"
+
+#: login/forms.py:11 login/forms.py:19 login/forms.py:28
+msgid "Username"
+msgstr "Username"
+
+#: login/forms.py:14
+msgid "Age"
+msgstr "Età"
+
+#: login/forms.py:21
+msgid "Remember password"
+msgstr "Ricorda la password"
+
+#: login/forms.py:31
+msgid "Confirm password"
+msgstr "Conferma password"
+
+#: login/forms.py:32
+msgid "Passwords must match"
+msgstr "Le password devono corrispondere"
+
+#: templates/_formhelpers.html:22
+msgid "Enter "
+msgstr "Inserisci "
+
+#: templates/layout.html:38
+msgid "My courses"
+msgstr "Gestore Corsi"
+
+#: templates/layout.html:62
+msgid "Users"
+msgstr "Utenti"
+
+#: templates/layout.html:88
+msgid "Schedules"
+msgstr "Schede"
+
+#: templates/layout.html:108 templates/layout.html:153
+msgid "Logout"
+msgstr "Esci"
+
+#: templates/layout.html:113 templates/login/login.html:4
+#: templates/login/login.html:12 templates/login/reset.html:15
+#: templates/login/unconfirmed.html:11
+msgid "Sign in"
+msgstr "Entra"
+
+#: templates/layout.html:117 templates/login/login.html:15
+#: templates/login/reset.html:16 templates/login/unconfirmed.html:12
+msgid "Sign up"
+msgstr "Iscriviti"
+
+#: templates/layout.html:145
+msgid "Ready to Leave?"
+msgstr "Sicuro di voler uscire?"
+
+#: templates/layout.html:150
+msgid "Select \"Logout\" below if you are ready to end your current session."
+msgstr "Seleziona \"Esci\" qui sotto se sei sicuro di voler chiudere la sessione corrente"
+
+#: templates/entities/entity.html:61 templates/entities/entity.html:83
+#: templates/entities/entity_update.html:32 templates/layout.html:152
+msgid "Cancel"
+msgstr "Annulla"
+
+#: templates/main.html:6
+msgid "Schedule not found"
+msgstr "Scheda non trovata"
+
+#: templates/main.html:7
+msgid "Please enter your group in the user settings."
+msgstr "Inserisci un Gruppo nelle impostazioni utente"
+
+#: templates/email/activate.html:1
+msgid "Your account was successfully created. Please click the link below"
+msgstr "Il tuo account è stato creato correttamente. Fai click sul link sottostante"
+
+#: templates/email/activate.html:2
+msgid "to confirm your email address and activate your account:"
+msgstr "per confermare la tua e-mail e attivare il tuo account:"
+
+#: templates/email/recover.html:1
+msgid "Please click the link below to change your password:"
+msgstr "Fai click sul link sottostante per cambiare la tua password"
+
+#: templates/entities/entity.html:22
+msgid "edit"
+msgstr "modifica"
+
+#: templates/entities/entity.html:54
+msgid "Are you sure?"
+msgstr "Sei sicuro?"
+
+#: templates/entities/entity.html:59
+msgid "Select \"Delete\" below if you want to delete this entry."
+msgstr "Seleziona \"Elimina\" qui sotto se vuoi eliminare questa voce."
+
+#: templates/entities/entity.html:62
+msgid "Delete"
+msgstr "Elimina"
+
+#: templates/entities/entity.html:75 templates/entities/entity_update.html:24
+msgid "Error"
+msgstr "Errore"
+
+#: templates/entities/entity.html:102
+msgid "not found"
+msgstr "non trovato"
+
+#: templates/login/login.html:16
+msgid "Forgot Password?"
+msgstr "Password dimenticata?"
+
+#: templates/login/resend.html:4
+msgid "Resend email"
+msgstr "Reinvia e-mail"
+
+#: templates/login/reset.html:4 templates/login/reset_with_token.html:4
+msgid "Reset password"
+msgstr "Resetta password"
+
+#: templates/login/reset.html:6
+msgid ""
+"Enter your email address and we will send you instructions on how to "
+"reset your password."
+msgstr ""
+"Inserisci la tua e-mail e ti invieremo le istruzioni per resettare la tua"
+" password"
+
+#: templates/login/reset_with_token.html:6
+msgid "Please enter new password."
+msgstr "Prego inserire una nuova password"
+
+#: templates/login/reset_with_token.html:12
+msgid "Change my password"
+msgstr "Cambia password"
+
+#: templates/login/unconfirmed.html:4
+msgid "Please confirm your email!"
+msgstr "Conferma la tua e-mail!"
+
+#: templates/login/unconfirmed.html:6
+msgid ""
+"You have not confirmed your account. Please check your inbox (and your "
+"spam folder) - you should have received an email with a confirmation "
+"link."
+msgstr ""
+"Non hai confermato il tuo account. Controlla la tua inbox (e la cartella "
+"dello spam) - dovresti aver ricevuto una e-mail con un link di conferma"
+
+#: templates/login/unconfirmed.html:8
+msgid "Resend"
+msgstr "Reinvia"
+

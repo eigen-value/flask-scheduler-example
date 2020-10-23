@@ -1,4 +1,5 @@
 from app import db
+from flask_babel import lazy_gettext
 
 
 class Room(db.Model):
@@ -452,10 +453,10 @@ def get_class_numbers():
 
 
 from .forms import RoomForm, TeacherForm, LessonForm, GroupForm, ClassNumberForm, SchedulerForm
-ENTITIES = {'rooms': {'name_unit': 'room', 'href': 'rooms', 'title': 'Rooms', 'class': Room, 'form': RoomForm},
-            'teachers': {'name_unit': 'teacher', 'href': 'teachers', 'title': 'Teachers', 'class': Teacher, 'form': TeacherForm},
-            'lessons': {'name_unit': 'lesson', 'href': 'lessons', 'title': 'Lessons', 'class': Lesson, 'form': LessonForm},
-            'groups': {'name_unit': 'group', 'href': 'groups', 'title': 'Groups', 'class': Group, 'form': GroupForm},
-            'schedule': {'name_unit': 'schedule', 'href': 'schedule', 'title': 'Schedule', 'class': Scheduler, 'form': SchedulerForm},
-            'class_numbers': {'name_unit': 'class number', 'href': 'class_numbers', 'title': 'Class numbers',
+ENTITIES = {'rooms': {'name_unit': lazy_gettext('room'), 'href': 'rooms', 'title': lazy_gettext('Rooms'), 'class': Room, 'form': RoomForm},
+            'teachers': {'name_unit': lazy_gettext('teacher'), 'href': 'teachers', 'title': lazy_gettext('Teachers'), 'class': Teacher, 'form': TeacherForm},
+            'lessons': {'name_unit': lazy_gettext('lesson'), 'href': 'lessons', 'title': lazy_gettext('Lessons'), 'class': Lesson, 'form': LessonForm},
+            'groups': {'name_unit': lazy_gettext('group'), 'href': 'groups', 'title': lazy_gettext('Groups'), 'class': Group, 'form': GroupForm},
+            'schedule': {'name_unit': lazy_gettext('schedule'), 'href': 'schedule', 'title': lazy_gettext('Schedule'), 'class': Scheduler, 'form': SchedulerForm},
+            'class_numbers': {'name_unit': lazy_gettext('class number'), 'href': 'class_numbers', 'title': lazy_gettext('Class numbers'),
                               'class': ClassNumber, 'form': ClassNumberForm}}

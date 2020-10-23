@@ -25,6 +25,9 @@ class Config(object):
     ADMINS = ['username']
     MAIL_DEFAULT_SENDER = 'username'
 
+    # languages
+    LANGUAGES = {'it': 'Italian', 'en': 'English'}
+
 
 class ProductionConfig(Config):
     DEBUG = False

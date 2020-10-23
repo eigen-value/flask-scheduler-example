@@ -4,10 +4,11 @@ from wtforms import Field
 from wtforms.fields import StringField, DateField
 from wtforms.validators import DataRequired
 from wtforms.ext.sqlalchemy.fields import QuerySelectField
+from flask_babel import lazy_gettext
 
 
 class RoomForm(FlaskForm):
-    name = StringField('Name', validators=[DataRequired()])
+    name = StringField(lazy_gettext('Name'), validators=[DataRequired()])
 
     def get_dict(self):
         form_dict = self.__dict__
@@ -19,8 +20,8 @@ class RoomForm(FlaskForm):
 
 
 class TeacherForm(FlaskForm):
-    firstname = StringField('First name', validators=[DataRequired()])
-    lastname = StringField('Last name', validators=[DataRequired()])
+    firstname = StringField(lazy_gettext('First name'), validators=[DataRequired()])
+    lastname = StringField(lazy_gettext('Last name'), validators=[DataRequired()])
 
     def get_dict(self):
         form_dict = self.__dict__
@@ -33,8 +34,8 @@ class TeacherForm(FlaskForm):
 
 
 class LessonForm(FlaskForm):
-    name = StringField('Name', validators=[DataRequired()])
-    teacher = QuerySelectField('Teacher', query_factory=get_teachers, allow_blank=False)
+    name = StringField(lazy_gettext('Name'), validators=[DataRequired()])
+    teacher = QuerySelectField(lazy_gettext('Teacher'), query_factory=get_teachers, allow_blank=False)
 
     def get_dict(self):
         form_dict = self.__dict__
@@ -47,7 +48,7 @@ class LessonForm(FlaskForm):
 
 
 class GroupForm(FlaskForm):
-    name = StringField('Name', validators=[DataRequired()])
+    name = StringField(lazy_gettext('Name'), validators=[DataRequired()])
 
     def get_dict(self):
         form_dict = self.__dict__
@@ -59,9 +60,9 @@ class GroupForm(FlaskForm):
 
 
 class ClassNumberForm(FlaskForm):
-    name = StringField('Name', validators=[DataRequired()])
-    time_start = StringField('Time start', validators=[DataRequired()])
-    time_end = StringField('Time end', validators=[DataRequired()])
+    name = StringField(lazy_gettext('Name'), validators=[DataRequired()])
+    time_start = StringField(lazy_gettext('Time start'), validators=[DataRequired()])
+    time_end = StringField(lazy_gettext('Time end'), validators=[DataRequired()])
 
     def get_dict(self):
         form_dict = self.__dict__
@@ -75,11 +76,11 @@ class ClassNumberForm(FlaskForm):
 
 
 class SchedulerForm(FlaskForm):
-    date = DateField('Date', validators=[DataRequired()])
-    class_number = QuerySelectField('Class number', query_factory=get_class_numbers, allow_blank=False)
-    room = QuerySelectField('Room', query_factory=get_rooms, allow_blank=False)
-    lesson = QuerySelectField('Lesson', query_factory=get_lessons, allow_blank=False)
-    group = QuerySelectField('Group', query_factory=get_groups, allow_blank=False)
+    date = DateField(lazy_gettext('Date'), validators=[DataRequired()])
+    class_number = QuerySelectField(lazy_gettext('Class number'), query_factory=get_class_numbers, allow_blank=False)
+    room = QuerySelectField(lazy_gettext('Room'), query_factory=get_rooms, allow_blank=False)
+    lesson = QuerySelectField(lazy_gettext('Lesson'), query_factory=get_lessons, allow_blank=False)
+    group = QuerySelectField(lazy_gettext('Group'), query_factory=get_groups, allow_blank=False)
 
     def get_dict(self):
         form_dict = self.__dict__

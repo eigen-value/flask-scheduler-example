@@ -1,7 +1,7 @@
 {% extends "login/layout_login.html" %}
 {% block content %}
     <div class="card card-register mx-auto mt-5">
-      <div class="card-header">Sign up</div>
+      <div class="card-header">{{ _('Sign up') }}</div>
       <div class="card-body">
         {{ output_flashed_messages() }}
         <form method=post>
@@ -10,7 +10,7 @@
                 <div class="form-row">
                   <div class="col-md-6">
                     {{ form.username.label }}
-                    {{ form.username(required=form.username.flags.required,class_="form-control",placeholder="Enter Username")|safe }}
+                    {{ form.username(required=form.username.flags.required,class_="form-control",placeholder={{ _("Enter Username") }})|safe }}
                   </div>
                   <div class="col-md-6">
                       <div class="form-check" style="margin-top: 2.4rem;">
@@ -24,27 +24,27 @@
                 <div class="form-row">
                   <div class="col-md-6">
                     {{ form.firstname.label }}
-                    {{ form.firstname(required=form.firstname.flags.required,class_="form-control",placeholder="Enter First name")|safe }}
+                    {{ form.firstname(required=form.firstname.flags.required,class_="form-control",placeholder={{ _("Enter First name") }})|safe }}
                   </div>
                   <div class="col-md-6">
                     {{ form.lastname.label }}
-                    {{ form.lastname(required=form.lastname.flags.required,class_="form-control",placeholder="Enter Last name")|safe }}
+                    {{ form.lastname(required=form.lastname.flags.required,class_="form-control",placeholder={{ _("Enter Last name") }})|safe }}
                   </div>
                 </div>
               </div>
               <div class="form-group">
                 {{ form.email.label }}
-                {{ form.email(required=form.email.flags.required,class_="form-control",placeholder="Enter Email")|safe }}
+                {{ form.email(required=form.email.flags.required,class_="form-control",placeholder={{ _("Enter Email") }})|safe }}
               </div>
               <div class="form-group">
                 <div class="form-row">
                   <div class="col-md-6">
                     {{ form.password.label }}
-                    {{ form.password(required=form.password.flags.required,class_="form-control",placeholder="Enter Password")|safe }}
+                    {{ form.password(required=form.password.flags.required,class_="form-control",placeholder={{ _("Enter Password") }})|safe }}
                   </div>
                   <div class="col-md-6">
                     {{ form.confirm_password.label }}
-                    {{ form.confirm_password(required=form.confirm_password.flags.required,class_="form-control",placeholder="Enter Password")|safe }}
+                    {{ form.confirm_password(required=form.confirm_password.flags.required,class_="form-control",placeholder={{ _("Enter Password") }})|safe }}
                   </div>
                 </div>
                   {% if form.confirm_password.errors %}
@@ -58,11 +58,11 @@
                       {% endfor %}
                   {% endif %}
               </div>
-            <input type=submit class="btn btn-primary btn-block" value='Sign up'>
+            <input type=submit class="btn btn-primary btn-block" value={{ _('Sign up') }}>
         </form>
         <div class="text-center">
-          <a class="d-block small mt-3" href="/login">Sign in</a>
-          <a class="d-block small" href="/reset">Forgot Password?</a>
+          <a class="d-block small mt-3" href="/login">{{ _('Sign in') }}</a>
+          <a class="d-block small" href="/reset">{{ _('Forgot Password?') }}</a>
         </div>
       </div>
     </div>
